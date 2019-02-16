@@ -22,8 +22,8 @@
       state: latest
   - name: configure ntp
     template:
-      src: /ansible/templates/ntpd.conf.j2
-      dest: /etc/ntpd.conf
+      src: /ansible/templates/ntp.conf.j2
+      dest: /etc/ntp.conf
     notify: restart ntpd
   - name: start ntp
     service:
