@@ -1,0 +1,36 @@
+---
+- name: install initial packages on all boxes
+  hosts: all
+  remote_user: ansible
+  become: yes
+
+  tasks:
+  - name: install all initial packages
+    yum:
+      name: {{item}}
+      state: latest
+      with_items:
+      - man
+      - man-pages
+      - mlocate
+      - bind-utils
+
+  tasks:
+  - name: install ntp packages
+    yum:
+      name: ntp
+      state: latest
+  - name: configure ntp
+    template:
+      src: /ansible/templates/ntp.conf.j2
+      dest: /etc/ntp.conf
+    notify: restart ntpd
+  - name: start ntpd
+    service:
+      name: ntpd
+      state: started
+  handlers:
+    - name: restart ntpd
+      service:
+        name: ntpd
+        state: restarted
