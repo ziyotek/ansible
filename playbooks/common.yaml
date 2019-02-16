@@ -25,7 +25,7 @@
       src: /ansible/templates/ntp.conf.j2
       dest: /etc/ntp.conf
     notify: restart ntpd
-  - name: start ntp
+  - name: start ntpd
     service:
       name: ntpd
       state: started
