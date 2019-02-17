@@ -7,7 +7,7 @@
   tasks:
   - name: install all initial packages
     yum:
-      name: {{item}}
+      name: "{{ item }}"
       state: latest
       with_items:
       - man
@@ -40,8 +40,7 @@
     template:
       src: /ansible/templates/resolv.conf.j2
       dest: /etc/resolv.conf
-  - name: stop Network Manager
-    service:
+  - name: remove Network Manager
+    yum:
       name: NetworkManager
-      state: stopped
-      enabled: no
+      state: absent
